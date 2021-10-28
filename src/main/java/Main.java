@@ -38,15 +38,16 @@ public class Main {
 
     //AUTOMATICALLY SIGN & VERIFY
     System.out.println("\nAUTOMATICALLY SIGN & VERIFY");
-    byte[]  automaticSignatureBytes = AutomaticHash.sign  ("SHA1withRSA", privateKey, dataBytes);
-    Boolean automaticVerified       = AutomaticHash.verify("SHA1withRSA", publicKey , dataBytes, automaticSignatureBytes);
+    byte[]  automaticSignatureBytes = UtilSignature.sign  ("SHA1withRSA", privateKey, dataBytes);
+    Boolean automaticVerified       = UtilSignature.verify("SHA1withRSA", publicKey , dataBytes, automaticSignatureBytes);
 
     //MANUALLY SIGN & VERIFY
     System.out.println("\nMANUALLY SIGN & VERIFY");
-    byte[]  manualHashBytes         = ManualHash.hash   ("SHA-1", dataBytes);
-    byte[]  manualPaddingHashBytes  = ManualHash.padding("SHA-1", manualHashBytes);
-    byte[]  manualSignatureBytes    = ManualHash.sign   ("NONEwithRSA", privateKey, manualPaddingHashBytes);
-    Boolean manualVerified          = ManualHash.verify ("NONEwithRSA", publicKey , manualPaddingHashBytes, manualSignatureBytes);
+    byte[]  manualHashBytes         = UtilSignature.hash   ("SHA-1", dataBytes);
+    byte[]  manualPaddingHashBytes  = UtilSignature.padding("SHA-1", manualHashBytes);
+    byte[]  manualSignatureBytes    = UtilSignature.sign   ("NONEwithRSA", privateKey, manualPaddingHashBytes);
+    Boolean manualVerified          = UtilSignature.verify ("NONEwithRSA", publicKey , manualPaddingHashBytes, manualSignatureBytes);
+
   }
 
   //====================================================================================
@@ -59,15 +60,16 @@ public class Main {
 
     //AUTOMATICALLY SIGN & VERIFY
     System.out.println("\nAUTOMATICALLY SIGN & VERIFY");
-    byte[]  automaticSignatureBytes = AutomaticHash.sign  ("SHA256withRSA", privateKey, dataBytes);
-    Boolean automaticVerified       = AutomaticHash.verify("SHA256withRSA", publicKey , dataBytes, automaticSignatureBytes);
+    byte[]  automaticSignatureBytes = UtilSignature.sign  ("SHA256withRSA", privateKey, dataBytes);
+    Boolean automaticVerified       = UtilSignature.verify("SHA256withRSA", publicKey , dataBytes, automaticSignatureBytes);
 
     //MANUALLY SIGN & VERIFY
     System.out.println("\nMANUALLY SIGN & VERIFY");
-    byte[]  manualHashBytes         = ManualHash.hash   ("SHA-256", dataBytes);
-    byte[]  manualPaddingHashBytes  = ManualHash.padding("SHA-256", manualHashBytes);
-    byte[]  manualSignatureBytes    = ManualHash.sign   ("NONEwithRSA", privateKey, manualPaddingHashBytes);
-    Boolean manualVerified          = ManualHash.verify ("NONEwithRSA", publicKey , manualPaddingHashBytes, manualSignatureBytes);
+    byte[]  manualHashBytes         = UtilSignature.hash   ("SHA-256", dataBytes);
+    byte[]  manualPaddingHashBytes  = UtilSignature.padding("SHA-256", manualHashBytes);
+    byte[]  manualSignatureBytes    = UtilSignature.sign   ("NONEwithRSA", privateKey, manualPaddingHashBytes);
+    Boolean manualVerified          = UtilSignature.verify ("NONEwithRSA", publicKey , manualPaddingHashBytes, manualSignatureBytes);
+
   }
 
 }

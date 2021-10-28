@@ -4,7 +4,7 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.util.Base64;
 
-public class ManualHash {
+public class UtilSignature {
 
   //====================================================================================
   // HASH
@@ -46,15 +46,20 @@ public class ManualHash {
   //====================================================================================
   // SIGN
   //====================================================================================
-  public static byte[] sign(String algorithm, PrivateKey privateKey, byte[] paddingHash) throws Exception {
+  // "SHA256withRSA" => SHA256 Hash + SHA256 Padding + RSA Encryption
+  // "SHA1withRSA"   => SHA1   Hash + SHA1   Padding + RSA Encryption
+  // "NONEwithRSA"   =>                                RSA Encryption
+  public static byte[] sign(String algorithm, PrivateKey privateKey, byte[] dataBytes) throws Exception {
 
-    //SIGN PADDED HASH
-    Signature         signature = Signature.getInstance(algorithm);
-                      signature.initSign(privateKey);
-                      signature.update(paddingHash);
-    byte[]            signatureBytes = signature.sign();
+    //INITIALIZE SIGNATURE
+    Signature signature = Signature.getInstance(algorithm);
+              signature.initSign(privateKey);
+              signature.update(dataBytes);
 
-    //DISPLAY ENCODED HASH & SIGNATURE
+    //CREATE SIGNATURE
+    byte[]    signatureBytes = signature.sign();
+
+    //DISPLAY ENCODED SIGNATURE
     System.out.println("SIGNATURE = " + Base64.getEncoder().encodeToString(signatureBytes));
 
     //RETURN SIGNATURE
@@ -63,14 +68,14 @@ public class ManualHash {
   }
 
   //====================================================================================
-  // MANUALLY VERIFY
+  // VERIFY
   //====================================================================================
-  public static Boolean verify(String algorithm, PublicKey publicKey, byte[] hashBytes, byte[] signatureBytes) throws Exception {
+  public static Boolean verify(String algorithm, PublicKey publicKey, byte[] dataBytes, byte[] signatureBytes) throws Exception {
 
     //INITIALIZE SIGNATURE
     Signature signature = Signature.getInstance(algorithm);
               signature.initVerify(publicKey);
-              signature.update(hashBytes);
+              signature.update(dataBytes);
 
     //VERIFY SIGNATURE
     boolean   verified = signature.verify(signatureBytes);
@@ -78,7 +83,7 @@ public class ManualHash {
     //DISPLAY VERIFICATION
     System.out.println("VERIFIED  = " + verified);
 
-    //RETURN SIGNATURE
+    //RETURN VERIFICATION
     return verified;
 
   }
