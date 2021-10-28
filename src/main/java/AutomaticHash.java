@@ -16,12 +16,8 @@ public class AutomaticHash {
                       signature.update(dataBytes);
     byte[]            signatureBytes = signature.sign();
 
-    //ENCODE SIGNATURE
-    byte[]            signatureEncodedBytes  = Base64.getEncoder().encode(signatureBytes);
-    String            signatureEncodedString = new String(signatureEncodedBytes);
-
     //DISPLAY ENCODED SIGNATURE
-    System.out.println("SIGNATURE = " + signatureEncodedString);
+    System.out.println("SIGNATURE = " + Base64.getEncoder().encodeToString(signatureBytes));
 
     //RETURN SIGNATURE
     return signatureBytes;
@@ -41,7 +37,7 @@ public class AutomaticHash {
     //VERIFY SIGNATURE
     boolean   verified = signature.verify(signatureBytes);
 
-    //DISPLAY VERIFICIATION
+    //DISPLAY VERIFICATION
     System.out.println("VERIFIED  = " + verified);
 
     //RETURN SIGNATURE
